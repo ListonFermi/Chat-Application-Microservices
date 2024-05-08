@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use(require("./routes/routes.js"));
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3003;
 app.listen(PORT, () =>
-  console.log(`User service is running at http://localhost:${PORT}/`)
+  console.log(`Chatroom service is running at http://localhost:${PORT}/`)
 );
