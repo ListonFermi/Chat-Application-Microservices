@@ -1,6 +1,7 @@
 const userCollection = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const publishSignupMessage = require("../rabbitMQ/publisher");
 
 module.exports = {
   signup: async (req, res) => {
@@ -19,6 +20,10 @@ module.exports = {
       const userJWT = jwt.sign({ userId: newUser._id.toString() }, JWT_KEY, {
         expiresIn: "1h",
       });
+
+      //Two publishers coz need to send to two services- One msg is consumed only  by one consumer
+      await publishSignupMessage({ _id: newUser._id, username, email }); 
+      await publishSignupMessage({ _id: newUser._id, username, email });
 
       res
         .status(200)
@@ -57,13 +62,11 @@ module.exports = {
         expiresIn: "1h",
       });
 
-      res
-        .status(200)
-        .send({
-          success: true,
-          message: "User logged in successfully",
-          userJWT,
-        });
+      res.status(200).send({
+        success: true,
+        message: "User logged in successfully",
+        userJWT,
+      });
     } catch (error) {
       console.log(error);
       res.status(500).send({ success: false, message: "Invalid credentials" });

@@ -9,6 +9,8 @@ app.use(cors());
 const dbConnect = require("./config/dbConnect.js");
 dbConnect();
 
+require('./rabbitMQ/consumer.js')()
+
 app.use(express.json());
 
 app.use(require("./routes/routes.js"));

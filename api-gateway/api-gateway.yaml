@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway-deployment
+  labels:
+    app: chatapp-api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chatapp-api-gateway
+  template:
+    metadata:
+      labels:
+        app: chatapp-api-gateway
+    spec:
+      containers:
+      - name: chatapp-api-gateway
+        image: listonfermi/lfkart-ecommerce-project-server:latest
+        ports:
+        - containerPort: 5000 
+        envFrom:
+        - secretRef:
+            name: chatapp-api-gateway-secrets
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chatapp-api-gateway-service
+spec:
+  type: NodePort
+  selector:
+    app: chatapp-api-gateway 
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 30001

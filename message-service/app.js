@@ -9,7 +9,7 @@ app.use(cors());
 const dbConnect = require("./config/dbConnect.js");
 dbConnect();
 
-require("./gRPC/message_server.js");
+require("./rabbitMQ/consumer.js")();
 
 app.use(express.json());
 
