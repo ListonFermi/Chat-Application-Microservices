@@ -1,6 +1,6 @@
-const express= require('express')
-const app = express()
-require('dotenv').config()
+const express = require("express");
+const app = express();
+require("dotenv").config();
 
 const cors = require("cors");
 app.use(cors());
@@ -9,7 +9,9 @@ app.use(cors());
 const dbConnect = require("./config/dbConnect.js");
 dbConnect();
 
-app.use(express.json())
+require("./gRPC/message_server.js");
+
+app.use(express.json());
 
 app.use(require("./routes/routes.js"));
 

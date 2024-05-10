@@ -14,7 +14,6 @@ module.exports = {
         email,
         password,
       });
-      console.log(newUser);
       //   Creating a JWT token and sending it in the body
       const JWT_KEY = String(process.env.JWT_KEY);
       const userJWT = jwt.sign({ userId: newUser._id.toString() }, JWT_KEY, {
