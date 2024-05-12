@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-gateway-deployment
+  name: chatapp-api-gateway-deployment
   labels:
     app: chatapp-api-gateway
 spec:
@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
       - name: chatapp-api-gateway
-        image: listonfermi/lfkart-ecommerce-project-server:latest
+        image: listonfermi/chatapp-api-gateway:latest
         ports:
-        - containerPort: 5000 
+        - containerPort: 3000
         envFrom:
         - secretRef:
             name: chatapp-api-gateway-secrets
@@ -39,4 +39,4 @@ spec:
     - protocol: TCP
       port: 3000
       targetPort: 3000
-      nodePort: 30001
+      nodePort: 30000

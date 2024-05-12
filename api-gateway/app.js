@@ -8,7 +8,7 @@ require("dotenv").config();
 const cors = require("cors");
 app.use(cors());
 
-const USER_PORT = process.env.USER_PORT || 3001;
+const USER_PORT = process.env.USER_PORT || 30011;
 app.use(
   "/api/user",
   createProxyMiddleware({
@@ -17,7 +17,7 @@ app.use(
   })
 );
 
-const MESSAGE_PORT = process.env.MESSAGE_PORT || 3002;
+const MESSAGE_PORT = process.env.MESSAGE_PORT || 30012;
 app.use(
   "/api/message",
   createProxyMiddleware({
@@ -26,7 +26,7 @@ app.use(
   })
 );
 
-const CHATROOM_PORT = process.env.CHATROOM_PORT || 3003;
+const CHATROOM_PORT = process.env.CHATROOM_PORT || 30013;
 app.use(
   "/api/chatroom",
   createProxyMiddleware({
